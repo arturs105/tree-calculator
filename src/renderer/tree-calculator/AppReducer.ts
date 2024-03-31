@@ -5,6 +5,8 @@ interface AppState {
     treeCuttingReason: MultiplierDetails
     cityMultiplier: MultiplierDetails
     locationMultiplier: MultiplierDetails
+    municipalityMultiplier: number
+    usePointSeventMultiplier: boolean
 }
 
 type AddTree = {
@@ -49,6 +51,16 @@ type SetLocationMultiplier = {
     multiplierId: number
 }
 
+type SetMunicipalityMultiplier = {
+    type: 'set-municipality-multiplier'
+    multiplier: number
+}
+
+type SetUsePointSevenMultiplier = {
+    type: 'set-use-point-seven-multiplier'
+    value: boolean
+}
+
 type AppAction = AddTree
     | RemoveTree
     | SetDiameter
@@ -57,6 +69,8 @@ type AppAction = AddTree
     | SetCuttingReason
     | SetCityMultiplier
     | SetLocationMultiplier
+    | SetMunicipalityMultiplier
+    | SetUsePointSevenMultiplier
 
 function appRedcuer(state: AppState, action: AppAction): AppState {
     switch (action.type) {
@@ -135,6 +149,20 @@ function appRedcuer(state: AppState, action: AppAction): AppState {
                 ...state,
                 locationMultiplier: locationMultiplier
             }
+
+        case 'set-municipality-multiplier':
+            return {
+                ...state,
+                municipalityMultiplier: action.multiplier
+            }
+
+        case 'set-use-point-seven-multiplier':
+            console.log(action.value)
+            return {
+                ...state,
+                usePointSeventMultiplier: action.value
+            }
+
 
     }
 }

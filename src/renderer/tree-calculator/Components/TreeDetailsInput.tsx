@@ -18,7 +18,7 @@ function TreeDetailsInput(props: Props) {
                 onChange={(e) =>
                     props.dispatchAction({ type: 'set-diameter', id: props.treeDetails.id, diameter: +e.target.value })
                 }
-                className="input-field"
+                className="small-input-field"
             />
 
             <label htmlFor="count">Daudzums:</label>
@@ -29,7 +29,7 @@ function TreeDetailsInput(props: Props) {
                 onChange={(e) =>
                     props.dispatchAction({ type: 'set-count', id: props.treeDetails.id, count: +e.target.value })
                 }
-                className="input-field"
+                className="small-input-field"
             />
 
             <MultiplierPicker

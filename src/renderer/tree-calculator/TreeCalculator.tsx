@@ -4,6 +4,8 @@ import { MultiplierDetails, TreeDetails, availableCitiesMultipliers, availableLo
 import { TreeDetailsInput } from "./Components/TreeDetailsInput";
 import { AppState, appRedcuer } from "./AppReducer";
 import { MultiplierPicker } from "./Components/MultiplierPicker";
+import { BooleanInput } from "./Components/BooleanInput";
+import { NumberInput } from "./Components/NumberInput";
 
 const initialAppState: AppState = {
     trees: [{
@@ -14,21 +16,40 @@ const initialAppState: AppState = {
     }],
     treeCuttingReason: availableTreeCuttingReasons[0],
     cityMultiplier: availableCitiesMultipliers[0],
-    locationMultiplier: availableLocationMultipliers[0]
+    locationMultiplier: availableLocationMultipliers[0],
+    municipalityMultiplier: 0.5,
+    usePointSeventMultiplier: true
 }
 
 function calculateTotalCost(state: AppState): number {
-    return state.trees.reduce((result, current) => result + calculateCostForTree(current, state.treeCuttingReason, state.cityMultiplier, state.locationMultiplier), 0)
+    return state.trees.reduce((result, current) =>
+        result + calculateCostForTree(
+            current,
+            state.treeCuttingReason,
+            state.cityMultiplier,
+            state.locationMultiplier,
+            state.municipalityMultiplier,
+            state.usePointSeventMultiplier),
+        0
+    )
 }
 
-function calculateCostForTree(treeDetails: TreeDetails, cuttingReason: MultiplierDetails, cityMultiplier: MultiplierDetails, locationMultiplier: MultiplierDetails): number {
-    const diameterFactor = 0.702804
+function calculateCostForTree(
+    treeDetails: TreeDetails, 
+    cuttingReason: MultiplierDetails, 
+    cityMultiplier: MultiplierDetails, 
+    locationMultiplier: MultiplierDetails,
+    municipalityMultiplier: number,
+    usePointSeventMultiplier: boolean
+): number {
+    const diameterFactor = usePointSeventMultiplier ? 0.702804 : 1
     return treeDetails.diameter / diameterFactor
         * treeDetails.multiplier.multiplier 
         * cuttingReason.multiplier 
         * treeDetails.count
         * cityMultiplier.multiplier
         * locationMultiplier.multiplier
+        * municipalityMultiplier
 }
 
 function TreeCalculator() {
@@ -73,17 +94,27 @@ function TreeCalculator() {
                         onChanged={(id) => dispatch({ type: 'set-location-multiplier', multiplierId: id })}
                         label="Atrašanās vieta: "
                     />
+
+                    <br/>
+
+                    <NumberInput
+                        value={state.municipalityMultiplier}
+                        onChanged={(multiplier) => dispatch({type: 'set-municipality-multiplier', multiplier: multiplier})}
+                        label="Pašvaldības koeficients: "
+                    />
+
+                    <br/>
+
+                    <BooleanInput
+                        value={state.usePointSeventMultiplier}
+                        onChanged={(value) => dispatch({type: 'set-use-point-seven-multiplier', value: value})}
+                        label="Izmantot koeficientu 0,702804: "
+                    />
                 </div>
                 <h2>Izmaksas: {calculateTotalCost(state).toFixed(2)} €</h2>
             </form>
         </div>
     );
-}
-
-function Test() {
-    return (
-        <h1>TESTING</h1>
-    )
 }
 
 export { TreeCalculator }
