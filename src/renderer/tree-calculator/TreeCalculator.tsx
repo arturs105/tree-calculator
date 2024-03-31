@@ -15,7 +15,7 @@ const initialAppState: AppState = {
         multiplier: availableTreeMultipliers[0]
     }],
     treeCuttingReason: availableTreeCuttingReasons[0],
-    cityMultiplier: availableCitiesMultipliers[0],
+    cityMultiplier: availableCitiesMultipliers[2],
     locationMultiplier: availableLocationMultipliers[0],
     municipalityMultiplier: 0.5,
     usePointSeventMultiplier: true
