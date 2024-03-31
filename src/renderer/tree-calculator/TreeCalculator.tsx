@@ -106,7 +106,7 @@ function TreeCalculator() {
                     <br/>
 
                     <BooleanInput
-                        value={state.usePointSeventMultiplier}
+                        checked={state.usePointSeventMultiplier}
                         onChanged={(value) => dispatch({type: 'set-use-point-seven-multiplier', value: value})}
                         label="Izmantot koeficientu 0,702804: "
                     />

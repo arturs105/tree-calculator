@@ -1,5 +1,5 @@
 interface Props {
-    value: boolean
+    checked: boolean
     onChanged: (value: boolean) => void
     label: string
 }
@@ -10,6 +10,7 @@ export function BooleanInput(props: Props) {
             <span>{props.label}</span>
             <input
                 type="checkbox"
+                checked={props.checked}
                 onChange={(e) => props.onChanged(e.target.checked)}
             />
         </label>
