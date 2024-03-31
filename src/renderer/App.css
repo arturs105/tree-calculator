@@ -1,15 +1,15 @@
 body {
   position: relative;
   color: white;
-  height: 100vh;
   background: linear-gradient(
     200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
+    #fedc2a,
+    #dd5789,
+    #7a2c9e
   );
+  background-attachment: fixed;
   font-family: sans-serif;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,6 +103,7 @@ input {
 form {
   background-color: #FFFFFFDD;
   padding: 40px;
+  margin-bottom: 200px;
   border-radius: 20px;
 }
 
